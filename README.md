@@ -23,7 +23,7 @@ Based off [eddiemoore](https://github.com/eddiemoore)'s [angular-spotify](https:
 
 ###Usage example
 
-```
+```shell
 import {Component, provide} from 'angular2/core';
 import {SpotifyService} from './spotify.service';
 
@@ -64,7 +64,8 @@ export class AppComponent {
             err => console.error(err),
             () => { });
     }
-}```
+}
+```
 
 ---------------------------
 
