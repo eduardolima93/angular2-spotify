@@ -1,7 +1,7 @@
 # angular2-spotify
 Angular2 service to connect to the [Spotify Web API](https://developer.spotify.com/web-api/)
 
-Based of [eddiemoore](https://github.com/eddiemoore)'s [angular-spotify](https://github.com/eddiemoore/angular-spotify)
+Based off [eddiemoore](https://github.com/eddiemoore)'s [angular-spotify](https://github.com/eddiemoore/angular-spotify)
 
 ###still under development
 
