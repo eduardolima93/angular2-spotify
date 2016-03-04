@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>angular2-spotify</title>
+    <script>
+        window.onload = function () {
+            var hash = window.location.hash;
+            if (window.location.search.substring(1).indexOf("error") !== -1) {
+                window.close();
+            } else if (hash) {
+                var token = window.location.hash.split('&')[0].split('=')[1];
+                localStorage.setItem('angular2-spotify-token', token);
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
