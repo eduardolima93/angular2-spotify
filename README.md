@@ -19,7 +19,7 @@ import {SpotifyService} from './spotify.service';
                 redirectUri: '<CALLBACK_URI>',
                 scope: '<SCOPE>',
                 // If you already have an auth token
-                authToken: localStorage.getItem('<AUTH_TOKEN>')
+                authToken: '<AUTH_TOKEN>'
             }
         })
     ]
