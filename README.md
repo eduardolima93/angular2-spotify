@@ -1,11 +1,15 @@
 # angular2-spotify
 Angular2 service to connect to the [Spotify Web API](https://developer.spotify.com/web-api/)
 
-Based off [eddiemoore](https://github.com/eddiemoore)'s [angular-spotify](https://github.com/eddiemoore/angular-spotify)
+Based off [eddiemoore](https://github.com/eddiemoore)'s [angular-spotify](https://github.com/eddiemoore/angular-spotify).
 Big thanks to him
 
-Provide Spotify Service into your component
+## Usage
+
+Provide Spotify Service into your component (only provide in your root componenent, but remember to import the service to every class you want to use it)
 ```ts
+import {SpotifyService} from './spotify.service';
+
 @Component({
     providers: [
         SpotifyService,
