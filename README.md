@@ -77,7 +77,7 @@ this.spotifyService.getAlbums('Array or comma separated list of Album IDs');
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .getAlbums('41MnTivkwTO3UUJ8DrqEJJ,6JWc4iAiJ9FjyK0B59ABb4,6UXCm6bOO4gFlDQZV5yL37')
   .subscirbe(data => {
     console.log(data);
@@ -123,7 +123,7 @@ this.spotifyService.getArtists('Comma separated string or array of Artist Ids');
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .getArtists('0oSGxfWSnnOXhD2fKuz2Gy,3dBVyJ7JuOMt4GE9607Qin')
   .subscirbe(data => {
     console.log(data);
@@ -167,7 +167,7 @@ this.spotifyService.getArtistTopTracks('Artist Id or Spotify Artist URI', 'Count
 
 Example:
 ```ts
-Spotify
+this.spotifyService
   .getArtistTopTracks('1vCWHaC5f2uS3yhpwWbIA6', 'AU')
   .subscirbe(data => {
     console.log(data);
@@ -203,7 +203,7 @@ this.spotifyService.getFeaturedPlaylists(options);
 
 Example:
 ```ts
-Spotify
+this.spotifyService
   .getFeaturedPlaylists({ locale: "nl_NL", country: "NL" })
   .subscirbe(data => {
     console.log(data);
@@ -299,7 +299,7 @@ this.spotifyService.following('type', options)
 
 
 ```ts
-this.spotifyService.following('artists', { limit: 10 }).subscirbe(artists => {
+this.spotifyService.following('artist', { limit: 10 }).subscirbe(artists => {
   console.log(artists);
 })
 ```
@@ -358,7 +358,7 @@ this.spotifyService.followPlaylist('owner_id', 'playlist_id', isPublic);
 
 Example:
 ```ts
-Spotify
+this.spotifyService
  .followPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', false)
  .subscirbe(data => {
    console.log(data);
@@ -375,7 +375,7 @@ this.spotifyService.unfollowPlaylist('owner_id', 'playlist_id', isPublic);
 
 Example:
 ```ts
-Spotify
+this.spotifyService
  .unfollowPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT')
  .subscirbe(data => {
    console.log(data);
@@ -387,7 +387,7 @@ Spotify
 
  Checking if the user is privately following a playlist is only possible for the current user when that user has granted access to the ```playlist-read-private``` scope.
  ```ts
- Spotify
+ this.spotifyService
  .playlistFollowingContains('owner_id', 'playlist_id', 'comma separated string or array of user ids');
  ```
  Example:
@@ -424,7 +424,7 @@ this.spotifyService.userTracksContains('comma separated string or array of spoti
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .userTracksContains('0udZHhCi7p1YzMlvI4fXoK,3SF5puV5eb6bgRSxBeMOk9')
   .subscirbe(data => {
    console.log(data);
@@ -439,7 +439,7 @@ this.spotifyService.saveUserTracks('comma separated string or array of spotify t
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .saveUserTracks('0udZHhCi7p1YzMlvI4fXoK,3SF5puV5eb6bgRSxBeMOk9')
   .subscirbe(data => {
     console.log(data);
@@ -454,7 +454,7 @@ this.spotifyService.removeUserTracks('comma separated string or array of spotify
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .removeUserTracks('0udZHhCi7p1YzMlvI4fXoK,3SF5puV5eb6bgRSxBeMOk9')
   .subscirbe(data => {
     console.log(data);
@@ -469,7 +469,7 @@ this.spotifyService.saveUserAlbums('comma separated string or array of spotify a
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .saveUserAlbums('4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
     console.log(data);
@@ -500,7 +500,7 @@ this.spotifyService.removeUserAlbums('comma separated string or array of spotify
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .removeUserAlbums('4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
     console.log(data);
@@ -516,7 +516,7 @@ this.spotifyService.userAlbumsContains('comma separated string or array of spoti
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .userAlbumsContains('4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
    console.log(data);
@@ -553,7 +553,7 @@ this.spotifyService.getPlaylist('user_id', 'playlist_id', options);
 - fields - Optional. Filters for the query: a comma-separated list of the fields to return. If omitted, all fields are returned. Sub-fields can be excluded by prefixing them with an exclamation mark. [More Info](https://developer.spotify.com/web-api/get-playlist/)
 
 ```ts
-Spotify
+this.spotifyService
   .getPlaylist('1176458919', '6Df19VKaShrdWrAnHinwVO')
   .subscirbe(data => {
     console.log(data);
@@ -568,7 +568,7 @@ this.spotifyService.getPlaylistTracks('user_id', 'playlist_id', options);
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .getPlaylistTracks('1176458919', '6Df19VKaShrdWrAnHinwVO')
   .subscirbe(data => {
    console.log(data);
@@ -587,7 +587,7 @@ this.spotifyService.createPlaylist('user_id', options);
 
 Example:
 ```ts
-Spotify
+this.spotifyService
   .createPlaylist('1176458919', { name: 'Awesome Mix Vol. 1' })
   .subscirbe(data => {
    console.log('playlist created');
@@ -606,8 +606,8 @@ this.spotifyService.addPlaylistTracks('user_id', 'playlist_id', 'comma separated
 
 Example:
 ```ts
-Spotify
-  .addPlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4', 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M')
+this.spotifyService
+  .addPlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4', 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
     console.log('tracks added to playlist');
   });
@@ -621,7 +621,7 @@ this.spotifyService.removePlaylistTracks('user_id', 'playlist_id', 'comma separa
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .removePlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4', 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
     console.log('tracks removed from playlist');
@@ -659,7 +659,7 @@ this.spotifyService.replacePlaylistTracks('user_id', 'playlist_id', 'comma separ
 ```
 Example:
 ```ts
-Spotify
+this.spotifyService
   .replacePlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4', 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M')
   .subscirbe(data => {
     console.log('tracks removed from playlist');
@@ -679,7 +679,7 @@ this.spotifyService.updatePlaylistDetails('user_id', 'playlist_id', options);
 
 Example:
 ```ts
-Spotify
+this.spotifyService
   .updatePlaylistDetails('1176458919', '2TkWjGCu8jurholsfdWtG4', { name: 'Updated Playlist Title' })
   .subscirbe(data => {
     console.log('Updated playlist details');
