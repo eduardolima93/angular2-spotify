@@ -90,8 +90,8 @@ this.spotifyService
 ```
 
 
-#### Get an Album�s Tracks
-Get Spotify catalog information about an album�s tracks. Optional parameters can be used to limit the number of tracks returned.
+#### Get an Album’s Tracks
+Get Spotify catalog information about an album’s tracks. Optional parameters can be used to limit the number of tracks returned.
 ```ts
 this.spotifyService.getAlbumTracks('AlbumID or Spotify Album URI', options);
 ```
@@ -135,8 +135,8 @@ this.spotifyService
   });
 ```
 
-#### Get an Artist�s Albums
-Get Spotify catalog information about an artist�s albums. Optional parameters can be passed in to filter and sort the response.
+#### Get an Artist’s Albums
+Get Spotify catalog information about an artist’s albums. Optional parameters can be passed in to filter and sort the response.
 ```ts
 this.spotifyService.getArtistAlbums('Artist Id or Spotify Artist URI', options);
 ```
@@ -162,8 +162,8 @@ this.spotifyService.getArtistAlbums('1vCWHaC5f2uS3yhpwWbIA6').subscirbe(data => 
 ```
 
 
-#### Get an Artist�s Top Tracks
-Get Spotify catalog information about an artist�s top tracks by country.
+#### Get an Artist’s Top Tracks
+Get Spotify catalog information about an artist’s top tracks by country.
 ```ts
 this.spotifyService.getArtistTopTracks('Artist Id or Spotify Artist URI', 'Country Code');
 ```
@@ -180,8 +180,8 @@ this.spotifyService
 ```
 
 
-#### Get an Artist�s Related Artists
-Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community�s listening history.
+#### Get an Artist’s Related Artists
+Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community’s listening history.
 ```ts
 this.spotifyService.getRelatedArtists('Artist Id or Spotify Artist URI');
 ```
@@ -231,7 +231,7 @@ this.spotifyService.getNewReleases({ country: "NL" }).subscirbe(data => {
 ```
 
 #### Get categories
-Get a list of categories used to tag items in Spotify (on, for example, the Spotify player�s �Browse� tab).
+Get a list of categories used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).
 ```ts
 this.spotifyService.getCategories(options);
 ```
@@ -250,7 +250,7 @@ this.spotifyService.getCategories({ country: 'SG' }).subscirbe(data => {
 ```
 
 #### Get category
-Get a single category used to tag items in Spotify (on, for example, the Spotify player�s �Browse� tab).
+Get a single category used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).
 ```ts
 this.spotifyService.getCategory(category_id, options);
 ```
@@ -294,8 +294,8 @@ this.spotifyService.getCategoryPlaylists(category_id, options);
 ### Follow
 These endpoints allow you manage the list of artists and users that a logged in user follows. Following and unfollowing requires the ```user-follow-modify``` scope. Check if Current User Follows requires the ```user-follow-read``` scope.
 
-#### Get User�s Followed Artists
-Get the current user�s followed artists.
+#### Get User’s Followed Artists
+Get the current user’s followed artists.
 
 ```ts
 this.spotifyService.following('type', options)
@@ -404,8 +404,8 @@ this.spotifyService
 
 
 ### Library *(may have name changes in next version)*
-#### Get Current User�s Saved Tracks
-Get a list of the songs saved in the current Spotify user�s �Your Music� library. Requires the ```user-library-read``` scope.
+#### Get Current User’s Saved Tracks
+Get a list of the songs saved in the current Spotify user’s “Your Music” library. Requires the ```user-library-read``` scope.
 ```ts
 this.spotifyService.getSavedUserTracks(options);
 ```
@@ -421,8 +421,8 @@ this.spotifyService.getSavedUserTracks().subscirbe(data => {
 ```
 
 
-#### Check Current User�s Saved Tracks
-Check if one or more tracks is already saved in the current Spotify user�s �Your Music� library. Requires the ```user-library-read``` scope.
+#### Check Current User’s Saved Tracks
+Check if one or more tracks is already saved in the current Spotify user’s “Your Music” library. Requires the ```user-library-read``` scope.
 
 ```ts
 this.spotifyService.userTracksContains('comma separated string or array of spotify track ids');
@@ -438,7 +438,7 @@ this.spotifyService
 
 
 #### Save Tracks for Current User
-Save one or more tracks to the current user�s �Your Music� library. Requires the ```user-library-modify``` scope.
+Save one or more tracks to the current user’s “Your Music” library. Requires the ```user-library-modify``` scope.
 ```ts
 this.spotifyService.saveUserTracks('comma separated string or array of spotify track ids');
 ```
@@ -453,7 +453,7 @@ this.spotifyService
 
 
 #### Remove Tracks for Current User
-Remove one or more tracks from the current user�s �Your Music� library. Requires the ```user-library-modify``` scope.
+Remove one or more tracks from the current user’s “Your Music” library. Requires the ```user-library-modify``` scope.
 ```ts
 this.spotifyService.removeUserTracks('comma separated string or array of spotify track ids');
 ```
@@ -467,22 +467,8 @@ this.spotifyService
 ```
 
 
-#### Save Albums for Current User
-Save one or more albums to the current user�s �Your Music� library. Requires the ```user-library-modify``` scope.
-```ts
-this.spotifyService.saveUserAlbums('comma separated string or array of spotify album ids');
-```
-Example:
-```ts
-this.spotifyService
-  .saveUserAlbums('4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M')
-  .subscirbe(data => {
-    console.log(data);
-  });
-```
-
-#### Get Current User�s Saved Albums
-Get a list of the albums saved in the current Spotify user�s �Your Music� library. Requires the ```user-library-read``` scope.
+#### Get Current User’s Saved Albums
+Get a list of the albums saved in the current Spotify user’s “Your Music” library. Requires the ```user-library-read``` scope.
 ```ts
 this.spotifyService.getSavedUserAlbums(options);
 ```
@@ -498,8 +484,24 @@ this.spotifyService.getSavedUserAlbums().subscirbe(data => {
 });
 ```
 
+
+#### Save Albums for Current User
+Save one or more albums to the current user’s “Your Music” library. Requires the ```user-library-modify``` scope.
+```ts
+this.spotifyService.saveUserAlbums('comma separated string or array of spotify album ids');
+```
+Example:
+```ts
+this.spotifyService
+  .saveUserAlbums('4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M')
+  .subscirbe(data => {
+    console.log(data);
+  });
+```
+
+
 #### Remove Albums for Current User
-Remove one or more albums from the current user�s �Your Music� library. Requires the ```user-library-modify``` scope.
+Remove one or more albums from the current user’s “Your Music” library. Requires the ```user-library-modify``` scope.
 ```ts
 this.spotifyService.removeUserAlbums('comma separated string or array of spotify album ids');
 ```
@@ -513,8 +515,8 @@ this.spotifyService
 ```
 
 
-#### Check User�s Saved Albums
-Check if one or more albums is already saved in the current Spotify user�s �Your Music� library. Requires the ```user-library-read``` scope.
+#### Check User’s Saved Albums
+Check if one or more albums is already saved in the current Spotify user’s “Your Music” library. Requires the ```user-library-read``` scope.
 
 ```ts
 this.spotifyService.userAlbumsContains('comma separated string or array of spotify album ids');
@@ -532,7 +534,7 @@ this.spotifyService
 ### Playlists
 User needs to be logged in to gain access to playlists
 
-#### Get a List of a User�s Playlists
+#### Get a List of a User’s Playlists
 Get a list of the playlists owned by a Spotify user. Requires the ```playlist-read-private``` scope
 ```ts
 this.spotifyService.getUserPlaylists('user_id', options);
@@ -566,7 +568,7 @@ this.spotifyService
 ```
 
 
-#### Get a Playlist�s Tracks
+#### Get a Playlist’s Tracks
 Get full details of the tracks of a playlist owned by a Spotify user. Requires the ```playlist-read-private``` scope.
 ```ts
 this.spotifyService.getPlaylistTracks('user_id', 'playlist_id', options);
@@ -601,7 +603,7 @@ this.spotifyService
 
 
 #### Add Tracks to a Playlist
-Add one or more tracks to a user�s playlist. Adding tracks to a public playlist requires the ```playlist-modify-public``` scope. Adding tracks to a private playlist requires the ```playlist-modify-private``` scope.
+Add one or more tracks to a user’s playlist. Adding tracks to a public playlist requires the ```playlist-modify-public``` scope. Adding tracks to a private playlist requires the ```playlist-modify-private``` scope.
 ```ts
 this.spotifyService.addPlaylistTracks('user_id', 'playlist_id', 'comma separated string or array of spotify track uris');
 ```
@@ -620,7 +622,7 @@ this.spotifyService
 
 
 #### Remove Tracks from a Playlist
-Remove one or more tracks from a user�s playlist. Removing tracks from a public playlist requires the ```playlist-modify-public``` scope. Removing tracks from a private playlist requires the ```playlist-modify-private``` scope.
+Remove one or more tracks from a user’s playlist. Removing tracks from a public playlist requires the ```playlist-modify-public``` scope. Removing tracks from a private playlist requires the ```playlist-modify-private``` scope.
 ```ts
 this.spotifyService.removePlaylistTracks('user_id', 'playlist_id', 'comma separated string or array of spotify track ids or uris');
 ```
@@ -657,7 +659,7 @@ this.spotifyService.reorderPlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4'
 ```
 
 
-#### Replace a Playlist�s Tracks
+#### Replace a Playlist’s Tracks
 Replace all the tracks in a playlist, overwriting its existing tracks. This powerful request can be useful for replacing tracks, re-ordering existing tracks, or clearing the playlist. Replacing tracks in a public playlist requires the ```playlist-modify-public``` scope. Replacing tracks in a private playlist requires the ```playlist-modify-private``` scope.
 ```ts
 this.spotifyService.replacePlaylistTracks('user_id', 'playlist_id', 'comma separated string or array of spotify track ids or uris');
@@ -672,8 +674,8 @@ this.spotifyService
 ```
 
 
-#### Change a Playlist�s Details
-Change a playlist�s name and public/private state. (The user must, of course, own the playlist.) Changing a public playlist requires the ```playlist-modify-public``` scope. Changing a private playlist requires the ```playlist-modify-private``` scope.
+#### Change a Playlist’s Details
+Change a playlist’s name and public/private state. (The user must, of course, own the playlist.) Changing a public playlist requires the ```playlist-modify-public``` scope. Changing a private playlist requires the ```playlist-modify-private``` scope.
 ```ts
 this.spotifyService.updatePlaylistDetails('user_id', 'playlist_id', options);
 ```
@@ -695,7 +697,7 @@ this.spotifyService
 ### User Profiles
 User needs to be logged in to gain access to user profiles
 
-#### Get a User�s Profile
+#### Get a User’s Profile
 Get public profile information about a Spotify user.
 ```ts
 this.spotifyService.getUser('user_id');
@@ -708,8 +710,8 @@ this.spotifyService.getUser('wizzler').subscirbe(data => {
 ```
 
 
-#### Get Current User�s Profile
-Get detailed profile information about the current user (including the current user�s username).
+#### Get Current User’s Profile
+Get detailed profile information about the current user (including the current user’s username).
 ```ts
 this.spotifyService.getCurrentUser();
 ```

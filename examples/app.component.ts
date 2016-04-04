@@ -167,8 +167,8 @@ export class AppComponent {
             .subscribe(data=> { console.log("saveUserTracks: ", data); },
             err=> { console.error(err) });
 
-        this.spotifyService.removePlaylistTracks(this.userId, this.playlistId, this.trackUri + "," + this.trackUri2)
-            .subscribe(data=> { console.log("removePlaylistTracks: ", data); },
+        this.spotifyService.removeUserTracks(this.userId, this.playlistId, this.trackUri + "," + this.trackUri2)
+            .subscribe(data=> { console.log("removeUserTracks: ", data); },
             err=> console.error(err));
 
         this.spotifyService.getSavedUserAlbums()
