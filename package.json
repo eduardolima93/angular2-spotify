@@ -1,0 +1,27 @@
+{
+  "name": "angular2-spotify",
+  "version": "1.0.0",
+  "description": "Angular2 service to connect to the Spotify Web API",
+  "main": "src/spotify.service.ts",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardolima93/angular2-spotify.git"
+  },
+  "keywords": [
+    "spotify",
+    "angular2",
+    "angular-2"
+  ],
+  "author": "Eduardo Moreira Lima <eduardo.lima932@gmail.com> (https://github.com/eduardolima93)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eduardolima93/angular2-spotify/issues"
+  },
+  "homepage": "https://github.com/eduardolima93/angular2-spotify#readme"
+}
