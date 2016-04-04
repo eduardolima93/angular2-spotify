@@ -13,6 +13,7 @@ npm install angular2-spotify --save
 
 Provide Spotify Service into your component (only provide in your root componenent, but remember to import the service to every class you want to use it)
 ```ts
+import {Component, provide} from 'angular2/core';
 import {SpotifyService} from 'angular2-spotify';
 
 @Component({
