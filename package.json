@@ -7,21 +7,7 @@
     "example": "examples"
   },
   "scripts": {
-    "preinstall": "npm install autodts",
-    "postinstall": "autodts link",
-    "prepublish": "tsc && autodts generate",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "typescript": {
-    "definition": "index.d.ts"
-  },
-  "dependencies": {
-    "@lib/dependency-example": "0.0.4",
-    "autodts": "~0.0.4"
-  },
-  "devDependencies": {
-    "@lib/autodts-generator": "~0.0.1",
-    "typescript": "~1.5.3"
   },
   "repository": {
     "type": "git",
