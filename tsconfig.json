@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "module": "CommonJS",
-    "target": "es5",
     "noImplicitAny": true,
-    "outDir": "dist"
+    "module": "commonjs",
+    "target": "ES5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true
   },
   "files": [
-    "src/angular2-spotify.ts"
+    "angular2-spotify.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -7,6 +7,7 @@
     "example": "examples"
   },
   "scripts": {
+    "prepublish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,16 +22,19 @@
   "author": "Eduardo Moreira Lima <eduardo.lima932@gmail.com> (https://github.com/eduardolima93)",
   "license": "MIT",
   "dependencies": {
-    "angular2": "2.0.0-beta.0",
-    "systemjs": "0.19.6",
+    "angular2": "^2.0.0-beta.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.0",
+    "systemjs": "0.19.6",
     "zone.js": "0.5.10"
   },
   "bugs": {
     "url": "https://github.com/eduardolima93/angular2-spotify/issues"
   },
-  "homepage": "https://github.com/eduardolima93/angular2-spotify#readme"
+  "homepage": "https://github.com/eduardolima93/angular2-spotify#readme",
+  "devDependencies": {
+    "typescript": "^1.8.10"
+  }
 }
