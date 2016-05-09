@@ -2,7 +2,7 @@
   "name": "angular2-spotify",
   "version": "1.3.4",
   "description": "Angular2 service to connect to the Spotify Web API",
-  "main": "dist/angular2-spotify.js",
+  "main": "angular2-spotify.js",
   "directories": {
     "example": "examples"
   },
@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/eduardolima93/angular2-spotify#readme",
   "devDependencies": {
-    "typescript": "^1.8.10"
-  }
+    "typescript": "1.7.5"
+  },
+  "typings": "./angular2-spotify.d.ts"
 }
