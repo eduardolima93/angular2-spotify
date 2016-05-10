@@ -1,5 +1,5 @@
 ﻿import {Component, provide} from 'angular2/core';
-import SpotifyService from 'angular2-spotify';
+import SpotifyService from 'angular2-spotify/angular2-spotify';
 
 @Component({
     selector: 'my-app',

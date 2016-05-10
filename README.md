@@ -11,10 +11,41 @@ Install angular2-spotify via npm. Use the --save property to save into your pack
 npm install angular2-spotify --save
 ```
 
+Configure your SystemJS like such:
+```js
+System.config({
+  map: {
+    'angular2-spotify': 'node_modules/angular2-spotify',
+    'angular2': 'node_modules/angular2',
+    'rxjs': 'node_modules/rxjs',
+  },
+  packages: {
+    'angular2-spotify': { fomat: 'register', defaultExtension: 'js' },
+    'angular2': { fomat: 'register', defaultExtension: 'js' },
+    'rxjs': { fomat: 'register', defaultExtension: 'js' },
+    app: { format: 'register', defaultExtension: 'js' }
+  }
+});
+System.import('app/main')
+  .then(null, console.error.bind(console));
+
+```
+
+Add HTTP_PROVIDERS to your app bootstrap
+```ts
+import { bootstrap }    from 'angular2/platform/browser';
+import { AppComponent } from './app.component';
+import {HTTP_PROVIDERS} from 'angular2/http';
+
+bootstrap(AppComponent, [
+    HTTP_PROVIDERS
+]);
+```
+
 Provide Spotify Service into your component (only provide in your root componenent, but remember to import the service to every class you want to use it)
 ```ts
 import {Component, provide} from 'angular2/core';
-import {SpotifyService} from 'angular2-spotify';
+import SpotifyService from 'angular2-spotify/angular2-spotify';
 
 @Component({
     providers: [
