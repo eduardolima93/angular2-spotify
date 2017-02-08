@@ -1,6 +1,6 @@
-import {Injectable, Inject, Optional} from 'angular2/core';
-import {Http, Headers, Response, Request} from 'angular2/http'
-import {Observable} from 'rxjs/observable';
+import {Injectable, Inject, Optional} from '@angular/core';
+import {Http, Headers, Response, Request} from '@angular/http'
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 export interface SpotifyConfig {
@@ -34,7 +34,8 @@ interface HttpRequestOptions {
 }
 
 @Injectable()
-export default class SpotifyService {
+//export default class SpotifyService {
+export class SpotifyService {
   constructor( @Inject("SpotifyConfig") private config: SpotifyConfig, private http: Http) {
     config.apiBase = 'https://api.spotify.com/v1';
   }
