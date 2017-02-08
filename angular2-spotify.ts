@@ -189,6 +189,23 @@ export class SpotifyService {
     }).map(res => res.json());
   }
 
+  getRecommendations(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/recommendations`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getAvailableGenreSeeds () {
+      return this.api({
+      method: 'get',
+      url: `/recommendations/available-genre-seeds`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
   //#endregion
 
   //#region following
@@ -346,6 +363,28 @@ export class SpotifyService {
   }
 
   //#endregion
+  
+  //#region personalization
+  
+  getUserTopArtists(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/top/artists`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getUserTopTracks(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/top/tracks`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  //#endregion
 
   //#region playlists
 
@@ -355,6 +394,15 @@ export class SpotifyService {
       url: `/users/${userId}/playlists`,
       headers: this.getHeaders(),
       search: options
+    }).map(res => res.json());
+  }
+
+  getCurrentUserPlaylists(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/playlists/`,
+      search: options,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -505,11 +553,43 @@ export class SpotifyService {
   getTracks(tracks: string | Array<string>) {
     var trackList = this.mountItemList(tracks);
     return this.api({
-      method: 'get',
-      url: `/tracks/`,
-      search: { ids: trackList.toString() }
+        method: 'get',
+        url: `/tracks/`,
+        search: { ids: trackList.toString() }
     }).map(res => res.json());
   }
+  
+  getTrackAudioAnalysis(track: string) {
+    track = this.getIdFromUri(track);
+    return this.api({
+      method: 'get',
+      url: `/audio-analysis/${track}`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }  
+  
+  getTrackAudioFeatures(track: string) {
+      track = this.getIdFromUri(track);
+      return this.api({
+        method: 'get',
+        url: `/audio-features/${track}`,
+        headers: this.getHeaders()
+      }).map(res => res.json());
+  }
+  
+
+  getTracksAudioFeatures(tracks: string | Array<string>) {
+    var trackList = this.mountItemList(tracks);
+    return this.api({
+      method: 'get',
+      url: `/audio-features/`,
+      search: { ids: trackList.toString() },
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+
+
 
   //#endregion
 
