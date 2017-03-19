@@ -23,6 +23,9 @@ export interface SpotifyOptions {
   locale?: string,
   public?: boolean,
   name?: string,
+  time_range?: string,
+  after?: string,
+  before?: string,
 }
 
 interface HttpRequestOptions {
@@ -383,6 +386,15 @@ export class SpotifyService {
       headers: this.getHeaders()
     }).map(res => res.json());
   }
+
+  getUserRecentlyPlayed(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/player/recently-played`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }  
 
   //#endregion
 

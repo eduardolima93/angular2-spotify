@@ -321,7 +321,48 @@ this.spotifyService.getCategoryPlaylists(category_id, options);
    console.log(data);
  })
  ```
+#### Get Recommendations Based on Seeds
+Create a playlist-style listening experience based on seed artists, tracks and genres.
+```ts
+this.spotifyService.getRecommendations(seed_*, options);
+```
+#### TODO
+Adapt interface for Seed
+https://developer.spotify.com/web-api/get-recommendations/
 
+##### Required
+- seed_artists - A comma separated list of Spotify IDs for seed artists.
+Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+- seed_genres - A comma separated list of any genres in the set of available genre seeds.
+Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+- seed_tracks - A comma separated list of Spotify IDs for a seed track.
+Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+
+##### Options Object (Optional)
+ - market - string - Optional. A market: an ISO 3166-1 alpha-2 country code. Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.
+ - limit - number - Optional. The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 100.
+ - offset - number - Optional. The index of the first item to return. Default: 0 (the first object). Use with ```limit``` to get the next set of items.
+
+ 
+ Example:
+ ```ts
+ this.spotifyService.getRecommendations( seed_tracks:'5h5tBFnbcVioFXiOixTn6', seed_artists:'0LcJLqbBmaGUft1e9Mm8HV' ).subscirbe(data => {
+   console.log(data);
+ })
+ ```
+
+#### Get category playlists
+Retrieve a list of available genres seed parameter values for recommendations
+```ts
+this.spotifyService.getAvailableGenreSeeds();
+```
+
+ Example:
+ ```ts
+ this.spotifyService.getAvailableGenreSeeds().subscirbe(data => {
+   console.log(data);
+ })
+ ```
 
 ### Follow
 These endpoints allow you manage the list of artists and users that a logged in user follows. Following and unfollowing requires the ```user-follow-modify``` scope. Check if Current User Follows requires the ```user-follow-read``` scope.
@@ -562,6 +603,43 @@ this.spotifyService
   });
 ```
 
+### Personalization
+
+#### Get a User’s Top Artists
+Get the current user’s top artists based on calculated affinity. Requires the ```user-top-read``` scope.
+```ts
+this.spotifyService.getUserTopArtists(options);
+```
+
+##### Options Object (Optional)
+ - limit - number - Optional. The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+ - offset - number - Optional. The index of the first item to return. Default: 0 (the first object). Use with ```limit``` to get the next set of items.
+ - time_range - string - Optional. Over what time frame the affinities are computed. Valid values: long_term (calculated from several years of data and including all new data as it becomes available), medium_term (approximately last 6 months), short_term (approximately last 4 weeks). Default: medium_term.
+
+ Example:
+ ```ts
+ this.spotifyService.getUserTopArtists().subscirbe(data => {
+   console.log(data);
+ })
+ ```
+
+ #### Get a User’s Top Tracks
+Get the current user’s top tracks based on calculated affinity. Requires the ```user-top-read``` scope.
+```ts
+this.spotifyService.getUserTopTracks(options);
+```
+
+##### Options Object (Optional)
+ - limit - number - Optional. The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+ - offset - number - Optional. The index of the first item to return. Default: 0 (the first object). Use with ```limit``` to get the next set of items.
+ - time_range - string - Optional. Over what time frame the affinities are computed. Valid values: long_term (calculated from several years of data and including all new data as it becomes available), medium_term (approximately last 6 months), short_term (approximately last 4 weeks). Default: medium_term.
+
+ Example:
+ ```ts
+ this.spotifyService.getUserTopTracks().subscirbe(data => {
+   console.log(data);
+ })
+ ```
 
 ### Playlists
 User needs to be logged in to gain access to playlists
@@ -578,6 +656,22 @@ this.spotifyService.getUserPlaylists('user_id', options);
 Example:
 ```ts
 this.spotifyService.getUserPlaylists('wizzler').subscirbe(data => {
+  console.log(data);
+});
+```
+
+#### Get a List of Current User’s Playlists
+Get a list of the playlists owned or followed by the current Spotify user. Requires the ```playlist-read-private``` scope
+```ts
+this.spotifyService.getCurrentUserPlaylists(options);
+```
+##### Options Object (Optional)
+- limit - Optional. The maximum number of playlists to return. Default: 20. Minimum: 1. Maximum: 50.
+- offset - Optional. The index of the first playlist to return. Default: 0 (the first object). Use with limit to get the next set of playlists.
+
+Example:
+```ts
+this.spotifyService.getCurrentUserPlaylists().subscirbe(data => {
   console.log(data);
 });
 ```
@@ -797,6 +891,67 @@ this.spotifyService.getTracks('Comma separated list or array of Track Ids');
 Example:
 ```ts
 this.spotifyService.getTracks('0eGsygTp906u18L0Oimnem,1lDWb6b6ieDQ2xT7ewTC3G').subscirbe(data => {
+  console.log(data);
+});
+```
+
+
+#### Get Audio Analysis for a Track
+Get a detailed audio analysis for a single track identified by its unique Spotify ID or Spotify URI.
+```ts
+this.spotifyService.getTrackAudioAnalysis('Track Id or Spotify Track URI');
+```
+
+ Example:
+ ```ts
+ this.spotifyService.getTrackAudioAnalysis('0eGsygTp906u18L0Oimnem').subscirbe(data => {
+   console.log(data);
+ })
+ ```
+
+
+#### Get Audio Features for a Track
+Get audio feature information for a single track identified by its unique Spotify ID or Spotify URI.
+```ts
+this.spotifyService.getTrackAudioFeatures('Track Id or Spotify Track URI');
+```
+
+ Example:
+ ```ts
+ this.spotifyService.getTrackAudioFeatures('0eGsygTp906u18L0Oimnem').subscirbe(data => {
+   console.log(data);
+ })
+ ```
+
+
+#### Get Audio Features for Several Tracks
+Get audio features for multiple tracks based on their Spotify IDs.
+```ts
+this.spotifyService.getTracksAudioFeatures('Comma separated list or array of Track Ids');
+```
+
+ Example:
+ ```ts
+ this.spotifyService.getTracksAudioFeatures('0eGsygTp906u18L0Oimnem,1lDWb6b6ieDQ2xT7ewTC3G').subscirbe(data => {
+   console.log(data);
+ })
+ ```
+### Player
+
+#### Get the Current User's Recently Played Tracks
+Get tracks from the current user’s recently played tracks. Requires the ```user-read-recently-played``` scope.
+```ts
+this.spotifyService.getUserRecentlyPlayed(options);
+```
+
+##### Options Object (Optional)
+- limit - Optional. The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 100.
+- after - Optional. A Unix timestamp in milliseconds. Returns all items after (but not including) this cursor position. If after is specified, before must not be specified.
+- before - Optional. A Unix timestamp in milliseconds. Returns all items before (but not including) this cursor position. If before is specified, after must not be specified.
+
+Example:
+```ts
+this.spotifyService.getUserRecentlyPlayed().subscirbe(data => {
   console.log(data);
 });
 ```

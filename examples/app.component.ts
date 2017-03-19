@@ -14,7 +14,7 @@ import SpotifyService from 'angular2-spotify/angular2-spotify';
             useValue: {
                 clientId: 'ABC123DEF456GHfddId789JKL',
                 redirectUri: 'http://www.example.com/callback.html',
-                scope: 'user-follow-modify user-follow-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-library-read user-library-modify user-read-private',
+                scope: 'user-follow-modify user-follow-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-library-read user-library-modify user-read-private user-top-read user-read-recently-played',
                  // If you already have an authToken
 				authToken: localStorage.getItem('angular2-spotify-token')
             }
@@ -52,6 +52,7 @@ export class AppComponent {
         this.browseTests();
         this.followTests();
         this.libraryTests();
+        this.personalizationTest();
         this.playlistTests();
         this.profilesTests();
         this.searchTests();
@@ -188,10 +189,28 @@ export class AppComponent {
             err=> console.error(err));
     }
 
+    personalizationTest(){
+        this.spotifyService.getUserTopArtists({ offset: 20, limit: 40 })
+            .subscribe(data=> { console.log("getUserTopArtists: ", data); },
+            err=> console.error(err));
+
+        this.spotifyService.getUserTopTracks({ offset: 20, limit: 40 })
+            .subscribe(data=> { console.log("getUserTopTracks: ", data); },
+            err=> console.error(err));
+
+        this.spotifyService.getUserRecentlyPlayed({ limit: 40 })
+            .subscribe(data=> { console.log("getUserRecentlyPlayed: ", data); },
+            err=> console.error(err));            
+    }
+
     playlistTests() {
         this.spotifyService.getUserPlaylists(this.userId, { offset: 20, limit: 40 })
             .subscribe(data=> { console.log("getUserPlaylists: ", data); },
             err=> console.error(err));
+
+        this.spotifyService.getCurrentUserPlaylists({ offset: 20, limit: 40 })
+            .subscribe(data=> { console.log("getCurrentUserPlaylists: ", data); },
+            err=> console.error(err));            
 
         this.spotifyService.getPlaylist(this.userId, this.playlistId)
             .subscribe(data=> { console.log("getPlaylist: ", data); },
@@ -253,6 +272,20 @@ export class AppComponent {
         this.spotifyService.getTracks('0eGsygTp906u18L0Oimnem,1lDWb6b6ieDQ2xT7ewTC3G')
             .subscribe(data=> { console.log("getTracks: ", data); },
             err=> console.error(err));
+
+        this.spotifyService.getTrackAudioAnalysis('0eGsygTp906u18L0Oimnem')
+            .subscribe(data=> { console.log("getTrackAudioAnalysis: ", data); },
+            err=> console.error(err));
+
+        this.spotifyService.getTrackAudioFeatures('0eGsygTp906u18L0Oimnem')
+            .subscribe(data=> { console.log("getTrackAudioFeatures: ", data); },
+            err=> console.error(err));            
+
+        this.spotifyService.getTracksAudioFeatures('0eGsygTp906u18L0Oimnem,1lDWb6b6ieDQ2xT7ewTC3G')
+            .subscribe(data=> { console.log("getTracksAudioFeatures: ", data); },
+            err=> console.error(err));
+
+
     }
 
 }
