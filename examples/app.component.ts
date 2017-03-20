@@ -1,25 +1,23 @@
-﻿import {Component, provide} from 'angular2/core';
+﻿import {Component} from '@angular/core';
 import SpotifyService from 'angular2-spotify/angular2-spotify';
 
 @Component({
-    selector: 'my-app',
+    selector: 'app-root',
     template: `
     <h1>angular2-spotify</h1>
     <button *ngIf="!user" (click)="login()">Login</button>
     <p *ngIf="!!user">You are logged in as: {{user.display_name}}</p>
   `,
-    providers: [
-        SpotifyService,
-        provide("SpotifyConfig", {
-            useValue: {
+    providers: [SpotifyService,
+        { provide: "SpotifyConfig" , useValue: {
                 clientId: 'ABC123DEF456GHfddId789JKL',
                 redirectUri: 'http://www.example.com/callback.html',
                 scope: 'user-follow-modify user-follow-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-library-read user-library-modify user-read-private user-top-read user-read-recently-played',
-                 // If you already have an authToken
-				authToken: localStorage.getItem('angular2-spotify-token')
+                    // If you already have an authToken
+                authToken: localStorage.getItem('angular2-spotify-token')
             }
-        })
-    ]
+        }
+    ]   
 })
 export class AppComponent {
     private user: Object;
@@ -168,7 +166,7 @@ export class AppComponent {
             .subscribe(data=> { console.log("saveUserTracks: ", data); },
             err=> { console.error(err) });
 
-        this.spotifyService.removeUserTracks(this.userId, this.playlistId, this.trackUri + "," + this.trackUri2)
+        this.spotifyService.removeUserTracks(this.trackUri + "," + this.trackUri2)
             .subscribe(data=> { console.log("removeUserTracks: ", data); },
             err=> console.error(err));
 
