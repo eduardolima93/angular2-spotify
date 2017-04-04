@@ -11,46 +11,15 @@ Install angular2-spotify via npm. Use the --save property to save into your pack
 npm install angular2-spotify --save
 ```
 
-Configure your SystemJS like such:
-```js
-System.config({
-  map: {
-    'angular2-spotify': 'node_modules/angular2-spotify',
-    'angular2': 'node_modules/angular2',
-    'rxjs': 'node_modules/rxjs',
-  },
-  packages: {
-    'angular2-spotify': { fomat: 'register', defaultExtension: 'js' },
-    'angular2': { fomat: 'register', defaultExtension: 'js' },
-    'rxjs': { fomat: 'register', defaultExtension: 'js' },
-    app: { format: 'register', defaultExtension: 'js' }
-  }
-});
-System.import('app/main')
-  .then(null, console.error.bind(console));
-
-```
-
-Add HTTP_PROVIDERS to your app bootstrap
-```ts
-import { bootstrap }    from 'angular2/platform/browser';
-import { AppComponent } from './app.component';
-import {HTTP_PROVIDERS} from 'angular2/http';
-
-bootstrap(AppComponent, [
-    HTTP_PROVIDERS
-]);
-```
-
 Provide Spotify Service into your component (only provide in your root componenent, but remember to import the service to every class you want to use it)
 ```ts
-import {Component, provide} from 'angular2/core';
-import SpotifyService from 'angular2-spotify/angular2-spotify';
+import {Component} from '@angular2/core';
+import {SpotifyService} from 'angular2-spotify/angular2-spotify';
 
 @Component({
     providers: [
-        SpotifyService,
-        provide("SpotifyConfig", {
+        SpotifyService,{ 
+        provide: "SpotifyConfig" , 
             useValue: {
                 clientId: '<CLIENT_ID>',
                 redirectUri: '<CALLBACK_URI>',
@@ -58,8 +27,8 @@ import SpotifyService from 'angular2-spotify/angular2-spotify';
                 // If you already have an auth token
                 authToken: '<AUTH_TOKEN>'
             }
-        })
-    ]
+        }
+    ]  
 })
 export class AppComponent {...}
 ```
@@ -70,8 +39,8 @@ Most of the functions in Spotify do not require you to authenticate your applica
 For example:
 ```ts
     providers: [
-        SpotifyService,
-        provide("SpotifyConfig", {
+        SpotifyService,{ 
+        provide: "SpotifyConfig" , 
             useValue: {
                 clientId: 'ABC123DEF456GHfddId789JKL',
                 redirectUri: 'http://www.example.com/callback.html',
@@ -79,7 +48,7 @@ For example:
 				// If you already have an authToken
 				authToken: localStorage.getItem('angular2-spotify-token')
             }
-        })
+        }
     ]
 ```
 
@@ -1006,7 +975,7 @@ login() {
 ###Usage example
 
 ```shell
-import {Component, provide} from 'angular2/core';
+import {Component} from '@angular/core';
 import {SpotifyService} from './spotify.service';
 
 @Component({
@@ -1017,8 +986,8 @@ import {SpotifyService} from './spotify.service';
     <p *ngIf="!!user">You are logged in as: {{user.display_name}}</p>
   `,
     providers: [
-        SpotifyService,
-        provide("SpotifyConfig", {
+        SpotifyService, { 
+        provide: "SpotifyConfig",
             useValue: {
                 clientId: 'ABC123DEF456GHfddId789JKL',
                 redirectUri: 'http://www.example.com/callback.html',
@@ -1026,7 +995,7 @@ import {SpotifyService} from './spotify.service';
 				// If you already have an authToken
 				authToken: localStorage.getItem('angular2-spotify-token')
             }
-        })
+        }
     ]
 })
 export class AppComponent {
