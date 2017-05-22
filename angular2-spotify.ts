@@ -1,6 +1,6 @@
-import {Injectable, Inject, Optional} from 'angular2/core';
-import {Http, Headers, Response, Request} from 'angular2/http'
-import {Observable} from 'rxjs/observable';
+import {Injectable, Inject, Optional} from '@angular/core';
+import {Http, Headers, Response, Request} from '@angular/http'
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 export interface SpotifyConfig {
@@ -23,6 +23,9 @@ export interface SpotifyOptions {
   locale?: string,
   public?: boolean,
   name?: string,
+  time_range?: string,
+  after?: string,
+  before?: string,
 }
 
 interface HttpRequestOptions {
@@ -34,7 +37,8 @@ interface HttpRequestOptions {
 }
 
 @Injectable()
-export default class SpotifyService {
+//export default class SpotifyService {
+export class SpotifyService {
   constructor( @Inject("SpotifyConfig") private config: SpotifyConfig, private http: Http) {
     config.apiBase = 'https://api.spotify.com/v1';
   }
@@ -184,6 +188,23 @@ export default class SpotifyService {
       method: 'get',
       url: `/browse/categories/${categoryId}/playlists`,
       search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getRecommendations(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/recommendations`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getAvailableGenreSeeds () {
+      return this.api({
+      method: 'get',
+      url: `/recommendations/available-genre-seeds`,
       headers: this.getHeaders()
     }).map(res => res.json());
   }
@@ -345,6 +366,37 @@ export default class SpotifyService {
   }
 
   //#endregion
+  
+  //#region personalization
+  
+  getUserTopArtists(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/top/artists`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getUserTopTracks(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/top/tracks`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getUserRecentlyPlayed(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/player/recently-played`,
+      search: options,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }  
+
+  //#endregion
 
   //#region playlists
 
@@ -354,6 +406,15 @@ export default class SpotifyService {
       url: `/users/${userId}/playlists`,
       headers: this.getHeaders(),
       search: options
+    }).map(res => res.json());
+  }
+
+  getCurrentUserPlaylists(options?: SpotifyOptions) {
+      return this.api({
+      method: 'get',
+      url: `/me/playlists/`,
+      search: options,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -504,11 +565,43 @@ export default class SpotifyService {
   getTracks(tracks: string | Array<string>) {
     var trackList = this.mountItemList(tracks);
     return this.api({
-      method: 'get',
-      url: `/tracks/`,
-      search: { ids: trackList.toString() }
+        method: 'get',
+        url: `/tracks/`,
+        search: { ids: trackList.toString() }
     }).map(res => res.json());
   }
+  
+  getTrackAudioAnalysis(track: string) {
+    track = this.getIdFromUri(track);
+    return this.api({
+      method: 'get',
+      url: `/audio-analysis/${track}`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }  
+  
+  getTrackAudioFeatures(track: string) {
+      track = this.getIdFromUri(track);
+      return this.api({
+        method: 'get',
+        url: `/audio-features/${track}`,
+        headers: this.getHeaders()
+      }).map(res => res.json());
+  }
+  
+
+  getTracksAudioFeatures(tracks: string | Array<string>) {
+    var trackList = this.mountItemList(tracks);
+    return this.api({
+      method: 'get',
+      url: `/audio-features/`,
+      search: { ids: trackList.toString() },
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+
+
 
   //#endregion
 
