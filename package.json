@@ -1,6 +1,6 @@
 {
   "name": "angular2-spotify",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Angular2 service to connect to the Spotify Web API",
   "main": "angular2-spotify.js",
   "directories": {
