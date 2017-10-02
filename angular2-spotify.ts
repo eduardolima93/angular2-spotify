@@ -1,5 +1,6 @@
 import {Injectable, Inject, Optional} from '@angular/core';
 import {Http, Headers, Response, Request} from '@angular/http'
+import { HttpModule } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
@@ -638,7 +639,8 @@ export class SpotifyService {
             authWindow.close();
           }
           authCompleted = true;
-
+          console.log('storage changed');
+          console.log(e);
           this.config.authToken = e.newValue;
           window.removeEventListener('storage', storageChanged, false);
 
@@ -649,6 +651,49 @@ export class SpotifyService {
     });
 
     return Observable.fromPromise(promise).catch(this.handleError);
+  }
+
+  //#endregion
+
+  //#region Player
+  startPlayback(){
+    return this.api({
+      method: 'put',
+      url: `/me/player/play`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  pausePlayback(){
+    return this.api({
+      method: 'put',
+      url: `/me/player/pause`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getPlayStatus(){
+    return this.api({
+      method: 'get',
+      url: `/me/player`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getDeviceInfo(){
+    return this.api({
+      method: 'get',
+      url: `/me/player/devices`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getCurrentPlaying(){
+    return this.api({
+      method: 'get',
+      url: `/me/player/currently-playing`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
   }
 
   //#endregion
