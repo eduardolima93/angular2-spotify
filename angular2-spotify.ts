@@ -53,7 +53,8 @@ export class SpotifyService {
     album = this.getIdFromUri(album);
     return this.api({
       method: 'get',
-      url: `/albums/${album}`
+      url: `/albums/${album}`,
+      headers: this.getHeaders(),
     }).map(res => res.json());
   }
 
@@ -66,6 +67,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/albums`,
+      headers: this.getHeaders(),
       search: { ids: albumList.toString() }
     }).map(res => res.json());
   }
@@ -79,6 +81,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/albums/${album}/tracks`,
+      headers: this.getHeaders(),
       search: options
     }).map(res => res.json());
   }
@@ -94,7 +97,8 @@ export class SpotifyService {
     artist = this.getIdFromUri(artist);
     return this.api({
       method: 'get',
-      url: `/artists/${artist}`
+      url: `/artists/${artist}`,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -106,6 +110,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/artists/`,
+      headers: this.getHeaders(),
       search: { ids: artists.toString() }
     }).map(res => res.json());
   }
@@ -116,6 +121,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/artists/${artist}/albums`,
+      headers: this.getHeaders(),
       search: options
     }).map(res => res.json());
   }
@@ -129,6 +135,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/artists/${artist}/top-tracks`,
+      headers: this.getHeaders(),
       search: { country: country }
     }).map(res => res.json());
   }
@@ -137,7 +144,8 @@ export class SpotifyService {
     artist = this.getIdFromUri(artist);
     return this.api({
       method: 'get',
-      url: `/artists/${artist}/related-artists`
+      url: `/artists/${artist}/related-artists`,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -398,6 +406,121 @@ export class SpotifyService {
 
   //#endregion
 
+  //#region Player
+
+  getUserAvailableDevices(){
+    return this.api({
+      method: 'get',
+      url: `/me/player/devices`,
+      headers: this.getHeaders()
+    }).map(res => res.json());
+  }
+
+  getUserCurrentPlayback(options?: SpotifyOptions){
+      return this.api({
+        method: 'get',
+        url: `/me/player`,
+        headers: this.getHeaders(),
+        search: options
+      }).map(res => res.json());
+    }
+
+  getUserCurrentlyPlayingTrack(options?: SpotifyOptions){
+      return this.api({
+        method: 'get',
+        url: `/me/player/currently-playing`,
+        headers: this.getHeaders(),
+        search: options
+      }).map(res => res.json());
+    }    
+  
+  setTransferPlaybackDevice(deviceIds: string | Array<string>, isPlay?: boolean){
+    return this.api({
+      method: 'put',
+      url: `/me/player`,
+      headers: this.getHeaders(),
+      body: { device_ids: deviceIds.toString().split(','), play: !!isPlay }
+    }).map(res => res.json());
+  }
+
+
+  setPlaybackPlay(deviceId?: string, options?: {context_uri?: string, uris?: string | Array<string>, offset?: { position?: number, uri?: string} }){
+    return this.api({
+      method: 'put',
+      url: `/me/player/play`,
+      headers: this.getHeaders(),
+      search: { device_id: deviceId },
+      body: options    
+    }).map(res => res.json());
+  }
+
+
+  setPlaybackPause(deviceId?: string){
+    return this.api({
+      method: 'put',
+      url: `/me/player/pause`,
+      headers: this.getHeaders(),
+      search: { device_id: deviceId }
+    }).map(res => res.json());
+  }
+
+  setPlaybackNextTrack(deviceId?: string){
+    return this.api({
+      method: 'post',
+      url: `/me/player/next`,
+      headers: this.getHeaders(),
+      search: { device_id: deviceId }
+    }).map(res => res.json());
+  }
+
+  setPlaybackPreviousTrack(deviceId?: string){
+    return this.api({
+      method: 'post',
+      url: `/me/player/previous`,
+      headers: this.getHeaders(),
+      search: { device_id: deviceId }
+    }).map(res => res.json());
+  }
+  
+  setPlaybackSeekPosition(newPosition: number, deviceId?: string){
+    return this.api({
+      method: 'put',
+      url: `/me/player/seek`,
+      headers: this.getHeaders(),
+      search: { position_ms: newPosition.toString(), device_id: deviceId }
+    }).map(res => res.json());
+  }
+
+  setPlaybackRepeat(repeatMode, deviceId?: string){
+    return this.api({
+      method: 'put',
+      url: `/me/player/repeat`,
+      headers: this.getHeaders(),
+      search: { state: repeatMode.toString(), device_id: deviceId }      
+    }).map(res => res.json());
+  }
+  
+  setPlaybackVolume(volumePercent: number, deviceId?: string){
+    return this.api({
+      method: 'put',
+      url: `/me/player/volume`,
+      headers: this.getHeaders(),
+      search: { volume_percent: volumePercent.toString(), device_id: deviceId }       
+    }).map(res => res.json());
+  }
+  
+  setPlaybackShuffle(isShuffle: boolean, deviceId?: string){
+    return this.api({
+      method: 'put',
+      url: `/me/player/shuffle`,
+      headers: this.getHeaders(),
+      search: { state: !!isShuffle.toString(), device_id: deviceId } 
+    }).map(res => res.json());
+  }    
+
+      
+  //#endregion
+
   //#region playlists
 
   getUserPlaylists(userId: string, options?: SpotifyOptions) {
@@ -517,7 +640,8 @@ export class SpotifyService {
   getUser(userId: string) {
     return this.api({
       method: 'get',
-      url: `/users/${userId}`
+      url: `/users/${userId}`,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -546,6 +670,7 @@ export class SpotifyService {
     return this.api({
       method: 'get',
       url: `/search`,
+      headers: this.getHeaders(),
       search: options
     }).map(res => res.json());
   }
@@ -558,7 +683,8 @@ export class SpotifyService {
     track = this.getIdFromUri(track);
     return this.api({
       method: 'get',
-      url: `/tracks/${track}`
+      url: `/tracks/${track}`,
+      headers: this.getHeaders()
     }).map(res => res.json());
   }
 
@@ -567,6 +693,7 @@ export class SpotifyService {
     return this.api({
         method: 'get',
         url: `/tracks/`,
+        headers: this.getHeaders(),
         search: { ids: trackList.toString() }
     }).map(res => res.json());
   }
@@ -659,7 +786,9 @@ export class SpotifyService {
     var parts = [];
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
-        parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+        if (obj[key] != undefined && obj != null){
+          parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+        }
       }
     };
     return parts.join('&');
