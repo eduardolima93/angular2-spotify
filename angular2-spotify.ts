@@ -28,6 +28,8 @@ export interface SpotifyOptions {
   before?: string,
 }
 
+export type repeatMode = 'track' | 'context' | 'off';
+
 interface HttpRequestOptions {
   method?: string,
   url: string,
@@ -443,17 +445,24 @@ export class SpotifyService {
     }).map(res => res.json());
   }
 
-
   setPlaybackPlay(deviceId?: string, options?: {context_uri?: string, uris?: string | Array<string>, offset?: { position?: number, uri?: string} }){
+    if (options.uris){
+      let tracks = options.uris;
+      let trackList = Array.isArray(tracks) ? tracks : tracks.split(',');
+      trackList.forEach((value, index) => {
+        trackList[index] = value.indexOf('spotify:') === -1 ? 'spotify:track:' + value : value;
+      })
+      options.uris = trackList;
+    }
+
     return this.api({
       method: 'put',
       url: `/me/player/play`,
-      headers: this.getHeaders(),
+      headers: this.getHeaders(true),
       search: { device_id: deviceId },
       body: options    
     }).map(res => res.json());
   }
-
 
   setPlaybackPause(deviceId?: string){
     return this.api({
@@ -491,7 +500,7 @@ export class SpotifyService {
     }).map(res => res.json());
   }
 
-  setPlaybackRepeat(repeatMode, deviceId?: string){
+  setPlaybackRepeat(repeatMode: repeatMode, deviceId?: string){
     return this.api({
       method: 'put',
       url: `/me/player/repeat`,

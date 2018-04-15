@@ -907,6 +907,35 @@ this.spotifyService.getTracksAudioFeatures('Comma separated list or array of Tra
  ```
 ### Player
 
+#### Get a User's Available Devices
+Get information about a user’s available devices. Requires the ```read-playback-state``` scope.
+```ts
+this.spotifyService.getUserAvailableDevices();
+```
+
+Example:
+```ts
+this.spotifyService.getUserAvailableDevices().subscirbe(data => {
+  console.log(data);
+});
+```
+
+#### Get Information About The User's Current Playback
+Get information about the user’s current playback state, including track, track progress, and active device. Requires the ```user-read-playback-state``` scope.
+```ts
+this.spotifyService.getUserCurrentPlayback(options);
+```
+
+##### Options Object (Optional)
+- market - Optional. An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.
+
+Example:
+```ts
+this.spotifyService.getUserCurrentPlayback().subscirbe(data => {
+  console.log(data);
+});
+```
+
 #### Get the Current User's Recently Played Tracks
 Get tracks from the current user’s recently played tracks. Requires the ```user-read-recently-played``` scope.
 ```ts
@@ -925,6 +954,183 @@ this.spotifyService.getUserRecentlyPlayed().subscirbe(data => {
 });
 ```
 
+####  Get the User's Currently Playing Track
+Get the object currently being played on the user’s Spotify account. Requires the ```user-read-currently-playing``` and/or ```user-read-playback-state``` scope.
+```ts
+this.spotifyService.getUserCurrentlyPlayingTrack();
+```
+
+##### Options Object (Optional)
+- market - Optional. An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.
+
+Example:
+```ts
+this.spotifyService.getUserCurrentlyPlayingTrack().subscirbe(data => {
+  console.log(data);
+});
+```
+
+#### Start/Resume a User's Playback
+Start a new context or resume current playback on the user’s active device. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackPlay(options);
+```
+
+##### Options Object (Optional)
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target. *This is recommended to use also start playback on inactive device.*
+- context_uri - Optional. Spotify URI of the context to play. Valid contexts are albums, artists, playlists.
+- uris - Optional. A JSON array of the Spotify track URIs to play.
+- offset - Optional. Indicates from where in the context playback should start. Only available when *context_uri* corresponds to an album or playlist object, or when the *uris* parameter is used.
+“position” is zero based and can’t be negative.
+
+Example:
+```ts
+this.spotifyService.setPlaybackPlay({uris: '4iV5W9uYEdYUVa79Axb7Rh'}).subscirbe(data => {
+  // no response from Spotify
+});
+
+this.spotifyService.setPlaybackPlay({context_uri: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT', offset: {position: 2}}).subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Pause a User's Playback
+Pause playback on the user’s account. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackPause(options);
+```
+
+##### Options Object (Optional)
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackPause().subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Skip User’s Playback To Next Track
+Skips to next track in the user’s queue. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackNextTrack(options);
+```
+
+##### Options Object (Optional)
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackNextTrack().subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+####  Skip User’s Playback To Previous Track
+Skips to previous track in the user’s queue. Requires the ```user-modify-playback-state``` scope.
+*Note that this will ALWAYS skip to the previous track, regardless of the current track’s progress. Returning to the start of the current track should be performed using **Seek To Position***
+```ts
+this.spotifyService.setPlaybackPreviousTrack(options);
+```
+
+##### Options Object (Optional)
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackPreviousTrack().subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Seek To Position In Currently Playing Track
+Seeks to the given position in the user’s currently playing track. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackSeekPosition(options);
+```
+
+##### Options Object (Optional)
+- position_ms - Required. The position in milliseconds to seek to. Must be a positive number. *Passing in a position that is greater than the length of the track will cause the player to start playing the next song.*
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackSeekPosition(1500).subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Set the repeat mode for the user’s playback.
+Set the repeat mode for the user’s playback. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackRepeat(options);
+```
+
+##### Options Object (Optional)
+- state - Required. *track*, *context* or *off*.
+    * *track* will repeat the current track.
+    * *context* will repeat the current context.
+    * *off* will turn repeat off.
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackRepeat('track').subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Set Volume For User's Playback
+Set the volume for the user’s current playback device. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackVolume(options);
+```
+
+##### Options Object (Optional)
+- volume_percent - Required. Integer. The volume to set. Must be a value from 0 to 100 inclusive.
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackVolume(80).subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+#### Toggle Shuffle For User’s Playback
+Toggle shuffle on or off for user’s playback. Requires the ```user-modify-playback-state``` scope.
+```ts
+this.spotifyService.setPlaybackShuffle(options);
+```
+
+##### Options Object (Optional)
+- state - Required. *true* : Shuffle user’s playback / *false* : Do not shuffle user’s playback.
+- device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target.
+
+Example:
+```ts
+this.spotifyService.setPlaybackShuffle(true).subscirbe(data => {
+  // no response from Spotify
+});
+```
+
+ #### Transfer a User's Playback
+Transfer playback to a new device and determine if it should start playing. Requires the ```user-modify-playback-state``` scope.
+*Note: To get the available devices to Transfer the Playback use **Get a User's Available Devices***
+```ts
+this.spotifyService.setTransferPlaybackDevice(options);
+```
+
+##### Options Object (Optional)
+- device_id - Required. The ID of the device on which playback should be started/transferred.
+- play - Optional. *true* : ensure playback happens on new device. / *false* : or not provided: keep the current playback state Default: *false*.
+
+Example:
+```ts
+this.spotifyService.setTransferPlaybackDevice('74ASZWbe4lXaubB36ztrGX').subscirbe(data => {
+  // no response from Spotify
+});
+```
 
 ### Authentication
 #### Login
