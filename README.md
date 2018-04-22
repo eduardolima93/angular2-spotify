@@ -915,9 +915,11 @@ this.spotifyService.getUserAvailableDevices();
 
 Example:
 ```ts
-this.spotifyService.getUserAvailableDevices().subscirbe(data => {
-  console.log(data);
-});
+this.spotifyService
+  .getUserAvailableDevices()
+  .subscirbe(data => {
+    console.log(data);
+  });
 ```
 
 #### Get Information About The User's Current Playback
@@ -931,9 +933,11 @@ this.spotifyService.getUserCurrentPlayback(options);
 
 Example:
 ```ts
-this.spotifyService.getUserCurrentPlayback().subscirbe(data => {
-  console.log(data);
-});
+this.spotifyService
+  .getUserCurrentPlayback()
+  .subscirbe(data => {
+    console.log(data);
+  });
 ```
 
 #### Get the Current User's Recently Played Tracks
@@ -949,9 +953,11 @@ this.spotifyService.getUserRecentlyPlayed(options);
 
 Example:
 ```ts
-this.spotifyService.getUserRecentlyPlayed().subscirbe(data => {
-  console.log(data);
-});
+this.spotifyService
+  .getUserRecentlyPlayed()
+  .subscirbe(data => {
+    console.log(data);
+  });
 ```
 
 ####  Get the User's Currently Playing Track
@@ -965,9 +971,11 @@ this.spotifyService.getUserCurrentlyPlayingTrack();
 
 Example:
 ```ts
-this.spotifyService.getUserCurrentlyPlayingTrack().subscirbe(data => {
-  console.log(data);
-});
+this.spotifyService
+  .getUserCurrentlyPlayingTrack()
+  .subscirbe(data => {
+    console.log(data);
+  });
 ```
 
 #### Start/Resume a User's Playback
@@ -979,19 +987,23 @@ this.spotifyService.setPlaybackPlay(options);
 ##### Options Object (Optional)
 - device_id - Optional. The id of the device this command is targeting. If not supplied, the user’s currently active device is the target. *This is recommended to use also start playback on inactive device.*
 - context_uri - Optional. Spotify URI of the context to play. Valid contexts are albums, artists, playlists.
-- uris - Optional. A JSON array of the Spotify track URIs to play.
+- uris - Optional. Comma separated list or array of Spotify track IDs or URIs to play.
 - offset - Optional. Indicates from where in the context playback should start. Only available when *context_uri* corresponds to an album or playlist object, or when the *uris* parameter is used.
 “position” is zero based and can’t be negative.
 
 Example:
 ```ts
-this.spotifyService.setPlaybackPlay({uris: '4iV5W9uYEdYUVa79Axb7Rh'}).subscirbe(data => {
+this.spotifyService
+  .setPlaybackPlay({uris: '4iV5W9uYEdYUVa79Axb7Rh'})
+  .subscirbe(data => {
   // no response from Spotify
-});
+  });
 
-this.spotifyService.setPlaybackPlay({context_uri: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT', offset: {position: 2}}).subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackPlay({context_uri: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT', offset: {position: 2}})
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Pause a User's Playback
@@ -1005,9 +1017,11 @@ this.spotifyService.setPlaybackPause(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackPause().subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackPause()
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Skip User’s Playback To Next Track
@@ -1021,9 +1035,11 @@ this.spotifyService.setPlaybackNextTrack(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackNextTrack().subscirbe(data => {
+this.spotifyService
+  .setPlaybackNextTrack()
+  .subscirbe(data => {
   // no response from Spotify
-});
+  });
 ```
 
 ####  Skip User’s Playback To Previous Track
@@ -1038,9 +1054,11 @@ this.spotifyService.setPlaybackPreviousTrack(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackPreviousTrack().subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackPreviousTrack()
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Seek To Position In Currently Playing Track
@@ -1055,9 +1073,11 @@ this.spotifyService.setPlaybackSeekPosition(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackSeekPosition(1500).subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackSeekPosition(1500)
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Set the repeat mode for the user’s playback.
@@ -1075,9 +1095,11 @@ this.spotifyService.setPlaybackRepeat(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackRepeat('track').subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackRepeat('track')
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Set Volume For User's Playback
@@ -1092,9 +1114,11 @@ this.spotifyService.setPlaybackVolume(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackVolume(80).subscirbe(data => {
-  // no response from Spotify
-});
+this.spotifyService
+  .setPlaybackVolume(80)
+  .subscirbe(data => {
+    // no response from Spotify
+  });
 ```
 
 #### Toggle Shuffle For User’s Playback
@@ -1109,9 +1133,11 @@ this.spotifyService.setPlaybackShuffle(options);
 
 Example:
 ```ts
-this.spotifyService.setPlaybackShuffle(true).subscirbe(data => {
+this.spotifyService
+  .setPlaybackShuffle(true)
+  .subscirbe(data => {
   // no response from Spotify
-});
+  });
 ```
 
  #### Transfer a User's Playback
@@ -1127,9 +1153,11 @@ this.spotifyService.setTransferPlaybackDevice(options);
 
 Example:
 ```ts
-this.spotifyService.setTransferPlaybackDevice('74ASZWbe4lXaubB36ztrGX').subscirbe(data => {
+this.spotifyService
+  .setTransferPlaybackDevice('74ASZWbe4lXaubB36ztrGX')
+  .subscirbe(data => {
   // no response from Spotify
-});
+  });
 ```
 
 ### Authentication
