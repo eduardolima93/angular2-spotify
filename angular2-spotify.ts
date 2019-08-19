@@ -466,18 +466,20 @@ export class SpotifyService {
       context_uri?: string;
       uris?: string | Array<string>;
       offset?: { position?: number; uri?: string };
+      position_ms?: number;
     }
   ) {
-    if (options.uris) {
-      const tracks = options.uris;
-      const trackList = Array.isArray(tracks) ? tracks : tracks.split(',');
-      trackList.forEach((value, index) => {
-        trackList[index] =
-          value.indexOf('spotify:') === -1 ? 'spotify:track:' + value : value;
-      });
-      options.uris = trackList;
+    if (options) {
+      if (options.uris) {
+        const tracks = options.uris;
+        const trackList = Array.isArray(tracks) ? tracks : tracks.split(',');
+        trackList.forEach((value, index) => {
+          trackList[index] =
+            value.indexOf('spotify:') === -1 ? 'spotify:track:' + value : value;
+        });
+        options.uris = trackList;
+      }
     }
-
     return this.api({
       method: 'put',
       url: `/me/player/play`,
@@ -573,26 +575,24 @@ export class SpotifyService {
   }
 
   getPlaylist(
-    userId: string,
     playlistId: string,
     options?: { fields: string }
   ) {
     return this.api({
       method: 'get',
-      url: `/users/${userId}/playlists/${playlistId}`,
+      url: `/playlists/${playlistId}`,
       headers: this.getHeaders(),
       search: options
     });
   }
 
   getPlaylistTracks(
-    userId: string,
     playlistId: string,
     options?: SpotifyOptions
   ) {
     return this.api({
       method: 'get',
-      url: `/users/${userId}/playlists/${playlistId}/tracks`,
+      url: `/playlists/${playlistId}/tracks`,
       headers: this.getHeaders(),
       search: options
     });
@@ -608,7 +608,6 @@ export class SpotifyService {
   }
 
   addPlaylistTracks(
-    userId: string,
     playlistId: string,
     tracks: string | Array<string>,
     options?: { position: number }
@@ -626,14 +625,13 @@ export class SpotifyService {
 
     return this.api({
       method: 'post',
-      url: `/users/${userId}/playlists/${playlistId}/tracks`,
+      url: `/playlists/${playlistId}/tracks`,
       headers: this.getHeaders(true),
       search: search
     });
   }
 
   removePlaylistTracks(
-    userId: string,
     playlistId: string,
     tracks: string | Array<string>
   ) {
@@ -646,14 +644,13 @@ export class SpotifyService {
     });
     return this.api({
       method: 'delete',
-      url: `/users/${userId}/playlists/${playlistId}/tracks`,
+      url: `/playlists/${playlistId}/tracks`,
       headers: this.getHeaders(true),
       body: { tracks: trackUris }
     });
   }
 
   reorderPlaylistTracks(
-    userId: string,
     playlistId: string,
     options: {
       range_start: number;
@@ -664,14 +661,13 @@ export class SpotifyService {
   ) {
     return this.api({
       method: 'put',
-      url: `/users/${userId}/playlists/${playlistId}/tracks`,
+      url: `/playlists/${playlistId}/tracks`,
       headers: this.getHeaders(true),
       body: options
     });
   }
 
   replacePlaylistTracks(
-    userId: string,
     playlistId: string,
     tracks: string | Array<string>
   ) {
@@ -683,16 +679,18 @@ export class SpotifyService {
 
     return this.api({
       method: 'put',
-      url: `/users/${userId}/playlists/${playlistId}/tracks`,
+      url: `/playlists/${playlistId}/tracks`,
       headers: this.getHeaders(),
       search: { uris: trackList.toString() }
     });
   }
 
-  updatePlaylistDetails(userId: string, playlistId: string, options: Object) {
+  updatePlaylistDetails(
+    playlistId: string,
+    options: Object) {
     return this.api({
       method: 'put',
-      url: `/users/${userId}/playlists/${playlistId}`,
+      url: `/playlists/${playlistId}`,
       headers: this.getHeaders(true),
       body: options
     });
