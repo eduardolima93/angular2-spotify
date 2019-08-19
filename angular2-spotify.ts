@@ -8,9 +8,8 @@ import {
   HttpParams
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable, from } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 
 export interface SpotifyConfig {
   clientId: string;
@@ -845,7 +844,7 @@ export class SpotifyService {
     });
 
     // Observable.fromPromise(promise).catch(this.handleError);
-    return fromPromise(promise).pipe(catchError(this.handleError));
+    return from(promise).pipe(catchError(this.handleError));
   }
 
   //#endregion
